@@ -16,11 +16,14 @@
         Hola! mi nombre es {{ nombre }}, tengo {{ edad }} años y vivo en {{
         ciudad }}.
       </p>
+
       <h2>Contador</h2>
       <p>Contador: {{ contador }}</p>
       <button @click="contador++">Incrementar (+)</button>
       <button @click="contador--">Decrementar (-)</button>
     </div>
+
+    <h3>Lista de tareas:</h3>
 
     <script>
       var app = new Vue({
