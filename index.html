@@ -8,8 +8,25 @@
   </head>
   <body>
     <div id="app">
-      <h1>{{ Mi Perfil }}</h1>
-      <p></p>
+      <h1>Mis datos</h1>
+      <p>Nombre: {{ nombre }}</p>
+      <p>Edad: {{ edad }}</p>
+      <p>Ciudad: {{ ciudad }}</p>
+      <p>
+        Hola! mi nombre es {{ nombre }}, tengo {{ edad }} años y vivo en {{
+        ciudad }}.
+      </p>
     </div>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          nombre: "Julieta Carmona",
+          edad: 26,
+          ciudad: "Viedma",
+        },
+      });
+    </script>
   </body>
 </html>
