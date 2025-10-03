@@ -21,9 +21,23 @@
       <p>Contador: {{ contador }}</p>
       <button @click="contador++">Incrementar (+)</button>
       <button @click="contador--">Decrementar (-)</button>
-    </div>
 
-    <h3>Lista de tareas:</h3>
+      <h3>Lista de tareas:</h3>
+      <input v-model="nuevaTarea" placeholder="Nueva tarea" />
+      <button @click="agregarTarea">Añadir Tarea</button>
+
+      <ul>
+        <li v-for="tarea in tareas" :key="tarea.id">
+          <input type="checkbox" v-model="tarea.completada" />
+          <span :class="{ 'tachado': tarea.completada }">
+            {{ tarea.texto }}
+          </span>
+        </li>
+      </ul>
+
+      <p>Total de Tareas: {{ totalTareas }}</p>
+      <p>Tareas Pendientes: {{ tareasPendientes }}</p>
+    </div>
 
     <script>
       var app = new Vue({
@@ -33,6 +47,28 @@
           edad: 26,
           ciudad: "Viedma",
           contador: 0,
+          nuevaTarea: "",
+          tareas: [],
+        },
+        methods: {
+          agregarTarea() {
+            if (this.nuevaTarea.trim() !== "") {
+              this.tareas.push({
+                id: Date.now(),
+                texto: this.nuevaTarea,
+                completada: false,
+              });
+              this.nuevaTarea = "";
+            }
+          },
+        },
+        computed: {
+          totalTareas() {
+            return this.tareas.length;
+          },
+          tareasPendientes() {
+            return this.tareas.filter((t) => !t.completada).length;
+          },
         },
       });
     </script>
