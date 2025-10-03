@@ -5,7 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TP1 PWA</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f9f9f9;
+        color: #333;
+        margin: 20px;
+        padding: 0;
+      }
+
+      #app {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+
+      button {
+        background: #c72f5d;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        margin: 5px 3px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #64062a;
+      }
+
+      input[type="text"] {
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        padding: 5px 0;
+        display: flex;
+        align-items: center;
+      }
+
+      li span {
+        margin-left: 8px;
+      }
+
+      .tachado {
+        text-decoration: line-through;
+        color: gray;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+    </style>
   </head>
+
   <body>
     <div id="app">
       <h1>Mis datos</h1>
@@ -52,7 +122,7 @@
         },
         methods: {
           agregarTarea() {
-            if (this.nuevaTarea.trim() !== "") {
+            if (this.nuevaTarea !== "") {
               this.tareas.push({
                 id: Date.now(),
                 texto: this.nuevaTarea,
