@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TP1 PWA</title>
+    <title>TP1 + TP2: PWA</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
     <style>
@@ -26,7 +26,8 @@
 
       h1,
       h2,
-      h3 {
+      h3,
+      h4 {
         color: #2c3e50;
       }
 
@@ -73,6 +74,14 @@
       p {
         margin: 5px 0;
       }
+
+      .lista-eventos-container {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #eee;
+        padding: 10px;
+        border-radius: 4px; /* Opcional: para mejor visualización */
+      }
     </style>
   </head>
 
@@ -107,6 +116,19 @@
 
       <p>Total de Tareas: {{ totalTareas }}</p>
       <p>Tareas Pendientes: {{ tareasPendientes }}</p>
+
+      ---
+
+      <h4>Lista de Eventos (Ciclo de Vida de Vue)</h4>
+      <p>Aquí se registran los eventos del ciclo de vida:</p>
+
+      <div class="lista-eventos-container">
+        <ul>
+          <li v-for="evento in listaeventos" :key="evento.id">
+            {{ evento.nombre }}: {{ evento.timestamp }}
+          </li>
+        </ul>
+      </div>
     </div>
 
     <script>
@@ -119,6 +141,8 @@
           contador: 0,
           nuevaTarea: "",
           tareas: [],
+          listaeventos: [],
+          nextEventId: 1,
         },
         methods: {
           agregarTarea() {
@@ -131,6 +155,13 @@
               this.nuevaTarea = "";
             }
           },
+          agregarEvento(nombreEvento) {
+            this.listaeventos.push({
+              id: this.nextEventId++,
+              nombre: nombreEvento,
+              timestamp: Date.now(),
+            });
+          },
         },
         computed: {
           totalTareas() {
@@ -139,6 +170,37 @@
           tareasPendientes() {
             return this.tareas.filter((t) => !t.completada).length;
           },
+        },
+        // HOOKS
+        beforeCreate() {
+          this.agregarEvento("beforeCreate");
+        },
+        created() {
+          this.agregarEvento("created");
+        },
+        beforeMount() {
+          this.agregarEvento("beforeMount");
+        },
+        mounted() {
+          this.agregarEvento("mounted");
+        },
+        // Para evitar un bucle infinito al actualizar el DOM
+        beforeUpdate() {
+          if (this.listaeventos.length < 10) {
+            this.agregarEvento("beforeUpdate");
+          }
+        },
+        updated() {
+          if (this.listaeventos.length < 10) {
+            this.agregarEvento("updated");
+          }
+        },
+
+        beforeDestroy() {
+          this.agregarEvento("beforeDestroy");
+        },
+        destroyed() {
+          this.agregarEvento("destroyed");
         },
       });
     </script>
